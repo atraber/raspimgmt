@@ -17,22 +17,22 @@ export class StreamsComponent {
       (streams) => this.streams = streams
     );
 
-    this.stream_selected = this.stream_select();
+    this.stream_selected = this.streamSelect();
   }
 
-  stream_select = function () {
+  streamSelect() {
     if (this.streams.length > 0)
       return this.streams[0];
     else
       return null;
   };
 
-  deleteStream = function (stream) {
-    this.devicesService.deleteStream(stream);
-    this.stream_selected = this.stream_select();
+  deleteStream(stream) {
+    this.devicesService.deleteStream(stream).subscribe();
+    this.stream_selected = this.streamSelect();
   };
 
-  addStream = function (name) {
+  addStream(name) {
     var stream = new Stream();
     stream.name = name;
     this.devicesService.addStream(stream).subscribe(stream => this.streams.push(stream));
