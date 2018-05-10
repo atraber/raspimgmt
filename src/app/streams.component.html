@@ -23,6 +23,18 @@
           <label for="streamUrl">URL</label>
           <input type="text" class="form-control" id="streamUrl" name="streamUrl" [(ngModel)]="stream_selected.url">
         </div>
+        <div class="form-group">
+          <label for="streamWidth">Width</label>
+          <input type="text" class="form-control" id="streamWidth" name="streamWidth" [(ngModel)]="stream_selected.width">
+        </div>
+        <div class="form-group">
+          <label for="streamHeight">Height</label>
+          <input type="text" class="form-control" id="streamHeight" name="streamHeight" [(ngModel)]="stream_selected.height">
+        </div>
+        <div class="form-group">
+          <label for="streamOrientation">Orientation</label>
+          <input type="text" class="form-control" id="streamOrientation" name="streamOrientation" [(ngModel)]="stream_selected.orientation">
+        </div>
         <button type="submit" class="btn btn-primary" (click)="updateStream(stream_selected)">Save</button>
         <button class="btn btn-danger" (click)="deleteStream(stream_selected)"><i class="fas fa-trash-alt"></i> Delete</button>
       </form>

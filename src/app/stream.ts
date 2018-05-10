@@ -4,4 +4,5 @@ export class Stream {
   url: string;
   width: number;
   height: number;
+  orientation: number;
 }

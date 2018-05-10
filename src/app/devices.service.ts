@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 import { Device } from './device';
 import { Stream } from './stream';
 
@@ -24,11 +25,10 @@ export class DevicesService {
     this.devices = [];
     this.streams = [];
 
-    var self = this;
-    this.http.get<Stream[]>('http://127.0.0.1:5000/streams')
+    this.http.get<Stream[]>(environment.apiEndpoint + '/streams')
       .subscribe(streams => {this.streams = streams; this.streamsUpdated.emit(streams)});
 
-    this.http.get<Device[]>('http://127.0.0.1:5000/devices')
+    this.http.get<Device[]>(environment.apiEndpoint + '/devices')
       .subscribe(devices => {this.devices = devices; this.devicesUpdated.emit(devices)});
   }
 
@@ -49,7 +49,7 @@ export class DevicesService {
   };
 
   addDevice(device: Device): Observable<Device> {
-    return this.http.post<Device>('http://127.0.0.1:5000/device', device, jsonOptions)
+    return this.http.post<Device>(environment.apiEndpoint + '/device', device, jsonOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -57,7 +57,7 @@ export class DevicesService {
 
   updateDevice(device: Device): Observable<Device> {
     this.devicesUpdated.emit(this.devices)
-    return this.http.post<Device>('http://127.0.0.1:5000/devices/' + device.id, device, jsonOptions)
+    return this.http.post<Device>(environment.apiEndpoint + '/devices/' + device.id, device, jsonOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -67,14 +67,14 @@ export class DevicesService {
     var index = this.devices.indexOf(device);
     this.devices.splice(index, 1);
     this.devicesUpdated.emit(this.devices)
-    return this.http.delete('http://127.0.0.1:5000/devices/' + device.id, jsonOptions)
+    return this.http.delete(environment.apiEndpoint + '/devices/' + device.id, jsonOptions)
       .pipe(
         catchError(this.handleError)
       );
   };
 
   addStream(stream: Stream): Observable<Stream> {
-    return this.http.post<Stream>('http://127.0.0.1:5000/stream', stream, jsonOptions)
+    return this.http.post<Stream>(environment.apiEndpoint + '/stream', stream, jsonOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -82,7 +82,7 @@ export class DevicesService {
 
   updateStream(stream: Stream): Observable<Stream> {
     this.streamsUpdated.emit(this.streams)
-    return this.http.post<Stream>('http://127.0.0.1:5000/streams/' + stream.id, stream, jsonOptions)
+    return this.http.post<Stream>(environment.apiEndpoint + '/streams/' + stream.id, stream, jsonOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -92,7 +92,7 @@ export class DevicesService {
     var index = this.streams.indexOf(stream);
     this.streams.splice(index, 1);
     this.streamsUpdated.emit(this.streams)
-    return this.http.delete('http://127.0.0.1:5000/streams/' + stream.id, jsonOptions)
+    return this.http.delete(environment.apiEndpoint + '/streams/' + stream.id, jsonOptions)
       .pipe(
         catchError(this.handleError)
       );

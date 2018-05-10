@@ -36,6 +36,8 @@ export class DevicesComponent {
   dev_remove_stream = function (dev, stream) {
     var index = dev.streams.indexOf(stream);
     dev.streams.splice(index, 1);
+
+    return false;
   };
 
   deleteDevice(dev) {
