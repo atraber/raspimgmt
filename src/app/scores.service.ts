@@ -67,8 +67,18 @@ export class ScoresService {
       );
   };
 
-  addScoreToRoom(room: Room, score: Score): Observable<{}> {
+  addScoreToRoom(room: Room, score: Score): Observable<{Score}> {
     return this.http.post<Score>(environment.apiEndpoint + '/rooms/' + room.id + '/score', score, jsonOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  };
+
+  deleteScoreFromRoom(room: Room, score: Score): Observable<{}> {
+    var index = room.scores.indexOf(score);
+    room.scores.splice(index, 1);
+    this.roomsUpdated.emit(this.rooms)
+    return this.http.delete(environment.apiEndpoint + '/rooms/' + room.id + '/scores/' + score.id, jsonOptions)
       .pipe(
         catchError(this.handleError)
       );

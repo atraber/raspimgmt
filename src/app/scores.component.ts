@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ScoresService } from './scores.service';
 import { Room } from './room';
 import { Score } from './score';
+import * as moment from 'moment';
 
 @Component({
   templateUrl: './scores.component.html',
@@ -30,9 +31,15 @@ export class ScoresComponent {
   addScoreToRoom(room, name, time) {
     var score = new Score();
     score.name = name;
-    score.time = time;
+    score.time = parseInt(moment.utc(time, "HH:mm").format("X"));
     this.scoresService.addScoreToRoom(room, score).subscribe(score => room.scores.push(score));
   };
+
+  deleteScoreFromRoom(room, score) {
+    this.scoresService.deleteScoreFromRoom(room, score).subscribe();
+
+    return false;
+  }
 
   addRoom(name) {
     var room = new Room();

@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { MomentModule } from 'angular2-moment';
 
 import { AppComponent } from './app.component';
 import { DevicesComponent } from './devices.component';
@@ -17,10 +18,13 @@ const appRoutes: Routes = [
   { path: 'streams', component: StreamsComponent },
   { path: 'scores', component: ScoresComponent },
   { path: '',
-    redirectTo: '/',
+    redirectTo: '/devices',
     pathMatch: 'full'
   },
-  { path: '**', component: DevicesComponent }
+  { path: '**',
+    redirectTo: '/devices',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
@@ -37,6 +41,7 @@ const appRoutes: Routes = [
     FormsModule,
     BrowserModule,
     HttpClientModule,
+    MomentModule,
   ],
   providers: [
     DevicesService,

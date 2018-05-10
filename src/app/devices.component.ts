@@ -16,7 +16,7 @@ export class DevicesComponent {
     this.devices = this.devicesService.devices;
     this.streams = this.devicesService.streams;
 
-    this.dev_selected = this.device_select();
+    this.dev_selected = this.deviceSelect();
     this.devicesService.devicesUpdated.subscribe(
       (devices) => this.devices = devices
     );
@@ -26,7 +26,7 @@ export class DevicesComponent {
     );
   }
 
-  device_select = function () {
+  deviceSelect() {
     if (this.devices.length > 0)
       return this.devices[0];
     else
@@ -42,7 +42,7 @@ export class DevicesComponent {
 
   deleteDevice(dev) {
     this.devicesService.deleteDevice(dev).subscribe();
-    this.device_select();
+    this.dev_selected = this.deviceSelect();
   };
 
   device_add = function (name) {
