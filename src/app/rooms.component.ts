@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { ScoresService } from './scores.service';
 import { Room } from './room';
-import { Score } from './score';
 import * as moment from 'moment';
 
 @Component({
-  templateUrl: './scores.component.html',
-  styleUrls: ['./scores.component.css']
+  templateUrl: './rooms.component.html',
+  styleUrls: ['./rooms.component.css']
 })
-export class ScoresComponent {
+export class RoomsComponent {
   rooms: Room[];
   room_selected: Room;
 
@@ -28,16 +27,19 @@ export class ScoresComponent {
       return null;
   };
 
-  addScoreToRoom(room, name, time) {
-    var score = new Score();
-    score.name = name;
-    score.time = parseInt(moment.utc(time, "HH:mm").format("X"));
-    this.scoresService.addScoreToRoom(room, score).subscribe(score => room.scores.push(score));
+  addRoom(name) {
+    var room = new Room();
+    room.name = name;
+    this.scoresService.addRoom(room).subscribe(room => this.rooms.push(room));
   };
 
-  deleteScoreFromRoom(room, score) {
-    this.scoresService.deleteScoreFromRoom(room, score).subscribe();
+  updateRoom(room) {
+    this.scoresService.updateRoom(room).subscribe();
+  }
 
-    return false;
+  deleteRoom(room) {
+    this.scoresService.deleteRoom(room).subscribe();
+    if (this.room_selected == room)
+      this.room_selected = null;
   }
 }

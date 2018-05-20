@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { DevicesComponent } from './devices.component';
 import { StreamsComponent } from './streams.component';
 import { ScoresComponent } from './scores.component';
+import { RoomsComponent } from './rooms.component';
 
 import { DevicesService } from './devices.service';
 import { ScoresService } from './scores.service';
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   { path: 'devices', component: DevicesComponent },
   { path: 'streams', component: StreamsComponent },
   { path: 'scores', component: ScoresComponent },
+  { path: 'rooms', component: RoomsComponent },
   { path: '',
     redirectTo: '/devices',
     pathMatch: 'full'
@@ -31,8 +33,9 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     DevicesComponent,
-    StreamsComponent,
+    RoomsComponent,
     ScoresComponent,
+    StreamsComponent,
   ],
   imports: [
     RouterModule.forRoot(
